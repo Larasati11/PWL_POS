@@ -1,32 +1,44 @@
-<!DOCTYPE html>
-<html>
+@extends('layouts.app')
 
-<head>
-    <title>Data User</title>
-</head>
+{{-- Customize layout sections --}}
+@section('subtitle', 'User')
+@section('content_header_title', 'User')
+@section('content_header_subtitle', 'Update')
 
-<body>
-    <h1>Form Ubah Data User</h1>
-    <a href="{{route('/user')}}">Kembali</a>
-    <br>
-    <form method="post" action="{{ route('/user/ubah_simpan', $data->user_id) }}">
-    {{ csrf_field() }}
-    {{ method_field('PUT') }}
-        <br>
-        <label>Username</label>
-        <input type="text" name="username" value="{{ $data->username }}">
-        <br>
+{{-- Content body: main page content --}}
+@section('content')
+<div class="container">
+    <div class="card card-warning">
+        <div class="card-header">
+            <h3 class="card-title">Update Data User</h3>
+        </div>
 
-        <label>Nama</label>
-        <input type="text" name="nama" value="{{ $data->nama }}">
-        <br>
+        <div class="card-body">
+            <form method="post" action="{{ route('/user/update_simpan', $data->user_id) }}">
+                @csrf
+                @method('PUT')
 
-        <label>Level ID</label>
-        <input type="number" name="level_id" value="{{ $data->level_id }}">
-        <br>
+                <div class="form-group">
+                    <label for="level_id">Level ID</label>
+                    <input type="text" class="form-control" id="level_id" name="level_id" value="{{ $data->level_id }}">
+                </div>
 
-        <input type="submit" name="btn btn-success" value="Ubah">
-    </form>
-</body>
-
-</html>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" value="{{ $data->username }}">
+                </div>
+                <div class="form-group">
+                    <label for="nama">Nama</label>
+                    <input type="text" class="form-control" id="nama" name="nama" value="{{ $data->nama }}">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" value="">
+                </div>
+                <a href="{{ route('/user') }}" class="btn btn-secondary">Back</a>
+                <button type="submit" class="btn btn-warning">Update</button>
+            </form>
+        </div>
+    </div>
+</div>
+@endsection

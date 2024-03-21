@@ -1,33 +1,42 @@
-<!DOCTYPE html>
-<html>
+@extends('layouts.app')
 
-<head>
-    <title>Data User</title>
-</head>
+{{-- Customize layout sections --}}
+@section('subtitle', 'User')
+@section('content_header_title', 'User')
+@section('content_header_subtitle', 'Create')
 
-<body>
-    <h1>Form Tambah Data User</h1>
-    <form method="post" action="{{ route('/user/tambah_simpan') }}">
-    {{ csrf_field() }}
-        <br>
-        <label>Username</label>
-        <input type="text" name="username" placeholder="Masukkan Username">
-        <br>
+{{-- Content body: main page content --}}
+@section('content')
+<div class="container">
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Buat User baru</h3>
+        </div>
 
-        <label>Nama</label>
-        <input type="text" name="nama" placeholder="Masukkan Nama">
-        <br>
+        <form method="post" action="../user">
+            <div class="card-body">
+            <div class="form-group">
+                    <label for="level_id">Level ID</label>
+                    <input type="text" class="form-control" id="level_id" name="level_id" placeholder="Masukkan level ID">
+                </div>
 
-        <label>Password</label>
-        <input type="password" name="password" placeholder="Masukkan Password">
-        <br>
-
-        <label>Level ID</label>
-        <input type="number" name="level_id">
-        <br>
-
-        <input type="submit" name="btn btn-success" value="Simpan">
-    </form>
-</body>
-
-</html>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" name="username"  placeholder="Masukkan Username">
+                </div>
+                <div class="form-group">
+                    <label for="nama">Nama</label>
+                    <input type="text" class="form-control" id="nama" name="nama"  placeholder="Masukkan Nama">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password"  placeholder="Masukkan Password">
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+@endsection

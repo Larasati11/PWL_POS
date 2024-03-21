@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\DataTables\UserDataTable;
+
 
 class UserController extends Controller
 {
@@ -41,7 +43,11 @@ class UserController extends Controller
 
         $user->username = $request->username;
         $user->nama = $request->nama;
-        $user->level_id = $request->level_id;
+        $user->level_id = $request->level_id; 
+       
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
 
         $user->save();
         return redirect('/user');
@@ -53,10 +59,10 @@ class UserController extends Controller
 
         return redirect('/user');
     }
-    public function index()
+    public function index(UserDataTable $dataTable)
     {
-        $user = UserModel::with('level')->get();
-        return view('user', ['data' => $user]);
+        return $dataTable->render('user.user');
     }
+
 }
 

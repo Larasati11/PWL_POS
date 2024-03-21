@@ -1,24 +1,55 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\LevelModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\DataTables\LevelDataTable;
 
 class LevelController extends Controller
 {
-    public function index()
+   
+    public function index(LevelDataTable $dataTable)
     {
-        DB::insert('insert into m_level(level_kode, level_nama, created_at) values(?, ?, ?)', ['CUS', 'Pelanggan', now()]);
-        return 'Insert data baru berhasil';
+        return $dataTable->render('level.level');
+    }
 
-        //$row = DB::update('update m_level set level_nama = ? where level_kode = ?', ['Customer', 'CUS']);
-        //return 'Update data berhasil. Jumlah data yang diupdate: ' . $row . ' baris';
+    public function tambah()
+    {
+        return view('level.tambah');
+    }
 
-        //$row = DB::delete('delete from m_level where level_kode = ?', ['Cus']);
-        //return 'Delete data berhasil. Jumlah data yang dihapus: ' . $row . ' baris';
+    public function tambah_simpan(Request $request)
+    {
+        DB::insert('insert into m_level(level_kode, level_nama, created_at) values(?, ?, ?)', [$request->level_kode, $request->level_nama, now()]);
+        return redirect('/level');
+    }
+    public function update($id)
+    {
+        $level = LevelModel::find($id);
+        return view('level.update', ['data' => $level]);
+    }
 
-        //$data = DB::select('select * from m_level');
-        //return view('level', ['data' => $data]);
+    public function update_simpan($id, Request $request)
+    {
+        $request->validate([
+            'kodeLevel' => 'required',
+            'namaLevel' => 'required',
+        ]);
+
+        $level = LevelModel::findOrFail($id);
+
+        $level->level_kode = $request->kodeLevel;
+        $level->level_nama = $request->namaLevel;
+
+        $level->save();
+        return redirect('/level')->with('success', 'Level berhasil diperbarui.');
+    }
+    public function hapus($id)
+    {
+        $level = LevelModel::find($id);
+        $level->delete();
+
+        return redirect('/level');
     }
 }
