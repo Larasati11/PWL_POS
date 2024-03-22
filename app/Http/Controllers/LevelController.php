@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Http\RedirectResponse;
 use App\Models\LevelModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,10 +20,19 @@ class LevelController extends Controller
         return view('level.tambah');
     }
 
-    public function tambah_simpan(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        DB::insert('insert into m_level(level_kode, level_nama, created_at) values(?, ?, ?)', [$request->level_kode, $request->level_nama, now()]);
-        return redirect('/level');
+        $validated = $request->validate([
+            'level_kode' => 'required',
+            'level_nama' => 'required'
+        ]);
+    
+        KategoriModel::create([
+            'level_kode' => $request->level_kode,
+            'level_nama' => $request->level_nama
+        ]);
+    
+        return redirect('/level')->with('success', 'Level; berhasil ditambahkan.');
     }
     public function update($id)
     {

@@ -13,7 +13,7 @@ Route::get('/', function () {
 Route::prefix('user')->group(function () {
     Route::get('/', [UserController::class, 'index'])->name('/user');
     Route::get('/tambah', [UserController::class, 'tambah'])->name('/user/tambah');
-    Route::post('/tambah_simpan', [UserController::class, 'tambah_simpan'])->name('/user/tambah_simpan');
+    Route::post('/', [UserController::class, 'store'])->name('/user/store');
     Route::get('/update/{id}', [UserController::class, 'ubah'])->name('/user/update');
     Route::put('/update_simpan/{id}', [UserController::class, 'ubah_simpan'])->name('/user/update_simpan');
     Route::get('/hapus/{id}', [UserController::class, 'hapus'])->name('/user/hapus');
@@ -33,7 +33,7 @@ Route::prefix('kategori')->group(function () {
 Route::prefix('level')->group(function () {
     Route::get('/', [LevelController::class, 'index'])->name('/level');
     Route::get('/tambah', [LevelController::class, 'tambah'])->name('/level/tambah');
-    Route::post('/tambah_simpan', [LevelController::class, 'tambah_simpan'])->name('/level/tambah_simpan');
+    Route::post('/', [LevelController::class, 'store'])->name('/level/store');
     Route::get('/update/{id}', [LevelController::class, 'update'])->name('/level/update');
     Route::put('/update_simpan/{id}', [LevelController::class, 'update_simpan'])->name('/level/update_simpan');
     Route::get('/hapus/{id}', [LevelController::class, 'hapus'])->name('/level/hapus');

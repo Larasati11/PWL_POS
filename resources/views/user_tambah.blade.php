@@ -14,6 +14,7 @@
         </div>
 
         <form method="post" action="../user">
+            @csrf
             <div class="card-body">
             <div class="form-group">
                     <label for="level_id">Level ID</label>

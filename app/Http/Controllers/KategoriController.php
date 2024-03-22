@@ -20,7 +20,7 @@ class KategoriController extends Controller
     {
         return view('kategori.create');
     }
-
+    
     public function store(Request $request): RedirectResponse
 {
     $validated = $request->validate([
