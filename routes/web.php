@@ -3,6 +3,7 @@
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\POSController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -42,3 +43,5 @@ Route::prefix('level')->group(function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('/dashboard');
+
+Route::resource('m_user', POSController::class);
