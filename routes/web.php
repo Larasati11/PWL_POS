@@ -4,20 +4,23 @@ use App\Http\Controllers\LevelController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\POSController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-// Routes for User
-Route::prefix('user')->group(function () {
-    Route::get('/', [UserController::class, 'index'])->name('/user');
-    Route::get('/tambah', [UserController::class, 'tambah'])->name('/user/tambah');
-    Route::post('/', [UserController::class, 'store'])->name('/user/store');
-    Route::get('/update/{id}', [UserController::class, 'ubah'])->name('/user/update');
-    Route::put('/update_simpan/{id}', [UserController::class, 'ubah_simpan'])->name('/user/update_simpan');
-    Route::get('/hapus/{id}', [UserController::class, 'hapus'])->name('/user/hapus');
+//JS 7 - User
+Route::group(['prefix' => 'user'], function () {
+    Route::get('/', [UserController::class, 'index']); //menampilkan halaman awal user
+    Route::post('/list', [UserController::class, 'list']); //menampilkan data user dalam bentuk json untuk database
+    Route::get('create', [UserController::class, 'create']); //menampilkan halaman form tambah user
+    Route::post('/', [UserController::class, 'store']); //menyimpan data user baru
+    Route::get('/{id}', [UserController::class, 'show']); //menampilkan detail user
+    Route::get('/{id}/edit', [UserController::class, 'edit']); //menampilkan halaman form edit user
+    Route::put('/{id}', [UserController::class, 'update']); //menyimpan perubahan data user
+    Route::delete('/{id}', [UserController::class, 'destroy']); //menghapus data user
 });
 
 // Routes for Kategori
@@ -40,8 +43,6 @@ Route::prefix('level')->group(function () {
     Route::get('/hapus/{id}', [LevelController::class, 'hapus'])->name('/level/hapus');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('/dashboard');
-
 Route::resource('m_user', POSController::class);
+
+Route::get('/', [WelcomeController::class, 'index']);
