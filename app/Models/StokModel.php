@@ -11,7 +11,7 @@ class StokModel extends Model
 
     protected $table = 't_stok';
     protected $primaryKey = 'stok_id';
-    protected $fillable = ['stok_id', 'barang_id', 'user_id','stok_tanggal', 'stok_jumlah', 'created_at', 'updated_at'];
+    protected $fillable = ['stok_id', 'barang_id', 'barang_nama', 'user_id','stok_tanggal', 'stok_jumlah', 'created_at', 'updated_at'];
 
     public function barang()
     {

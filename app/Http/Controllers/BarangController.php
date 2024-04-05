@@ -77,6 +77,7 @@ class BarangController extends Controller
     {
         $request->validate([
             'kategori_id' => 'required',
+            'barang_kode' => 'required',
             'barang_nama' => 'required',
             'harga_beli' => 'required',
             'harga_jual' => 'required'

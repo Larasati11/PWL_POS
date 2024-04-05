@@ -66,16 +66,16 @@ class KategoriController extends Controller
     }
 
     // Menyimpan data kategori baru
-    public function create_simpan(Request $request)
+    public function store(Request $request)
     {
         $request->validate([
-            'kodeKategori' => 'required|unique:m_kategori,kategori_kode',
-            'namaKategori' => 'required|string|max:100'
+            'kategori_kode' => 'required|string|min:6|max:10|unique:m_kategori,kategori_kode',
+            'kategori_nama' => 'required|string|max:100'
         ]);
 
         KategoriModel::create([
-            'kategori_kode' => $request->kodeKategori,
-            'kategori_nama' => $request->namaKategori
+            'kategori_kode' => $request->kategori_kode,
+            'kategori_nama' => $request->kategori_nama
         ]);
 
         return redirect('/kategori')->with('success', 'Data kategori berhasil ditambahkan');
@@ -120,10 +120,10 @@ class KategoriController extends Controller
     }
 
     // Menyimpan data kategori yang telah diedit
-    public function edit_simpan(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'kodeKategori' => 'required|string|min:3|unique:m_kategori,kategori_kode,'.$id.',kategori_id',
+            'kodeKategori' => 'required|string|min:6|max:10|unique:m_kategori,kategori_kode,'.$id.',kategori_id',
             'namaKategori' => 'required|string|max:100'
         ]);
 
@@ -136,7 +136,7 @@ class KategoriController extends Controller
     }
 
     // Menghapus data kategori
-    public function delete($id)
+    public function destroy($id)
     {
         $check = KategoriModel::find($id);
         if (!$check) {

@@ -85,7 +85,7 @@ class StokController extends Controller
 
         StokModel::create($request->all());
 
-        return redirect('/stok')->with('status', 'Data stok berhasil ditambahkan!');
+        return redirect('/stok')->with('success', 'Data stok berhasil ditambahkan!');
     }
 
     // Menampilkan detail stok
@@ -137,7 +137,7 @@ class StokController extends Controller
 
         StokModel::find($id)->update($request->all());
 
-        return redirect('/stok')->with('status', 'Data stok berhasil diubah!');
+        return redirect('/stok')->with('success', 'Data stok berhasil diubah!');
     }
 
     // Menghapus data stok
