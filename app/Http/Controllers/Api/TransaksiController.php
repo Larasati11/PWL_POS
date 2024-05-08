@@ -3,20 +3,20 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\TransaksiModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Models\UserModel;
 
-class RegisterController extends Controller
+class TransaksiController extends Controller
 {
     public function __invoke(Request $request) {
         // set validation
         $validator = Validator::make($request->all(), [
-            'username' => 'required',
-            'nama' => 'required',
-            'password' => 'required|min:5|confirmed',
-            'level_id' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'user_id' => 'required',
+            'pembeli' => 'required',
+            'penjualan_kode' => 'required',
+            'penjualan_tanggal' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
         // if validations fails
@@ -24,12 +24,12 @@ class RegisterController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        // create user
-        $user = UserModel::create([
-            'username' => $request->username,
-            'nama' => $request->nama,
-            'password' => bcrypt($request->password),
-            'level_id' => $request->level_id,
+        // create barang
+        $user = TransaksiModel::create([
+            'user_id' => $request->user_id,
+            'pembeli' => $request->pembeli,
+            'penjualan_kode' => $request->penjualan_kode,
+            'penjualan_tanggal' => $request->penjualan_tanggal,
             'image' => $request->image->hashName(),
         ]);
 
@@ -46,22 +46,24 @@ class RegisterController extends Controller
             'success' => false,
         ], 409);
     }
+
+    // Fungsi untuk menampilkan data transaksi yang telah didaftarkan
     public function show($id)
     {
-        $user = UserModel::find($id);
+        $transaksi = TransaksiModel::find($id);
 
-        // Jika pengguna ditemukan
-        if ($user) {
+        // Jika transaksi ditemukan
+        if ($transaksi) {
             return response()->json([
                 'success' => true,
-                'user' => $user,
+                'transaksi' => $transaksi,
             ], 200);
         }
 
-        // Jika pengguna tidak ditemukan
+        // Jika transaksi tidak ditemukan
         return response()->json([
             'success' => false,
-            'message' => 'User not found.',
+            'message' => 'Transaksi not found.',
         ], 404);
     }
 }

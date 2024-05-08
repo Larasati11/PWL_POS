@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\LevelController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\KategoriController;
 use App\Http\Controllers\Api\BarangController;
+use App\Http\Controllers\Api\TransaksiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,7 +25,15 @@ Route::post('/login', App\Http\Controllers\Api\LoginController::class)->name('lo
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::get('/register1/{id}', [App\Http\Controllers\Api\RegisterController::class, 'show'])->name('register1');
+
 Route::post('/logout', App\Http\Controllers\Api\LogoutController::class)->name('logout');
+
+Route::post('/barang', [App\Http\Controllers\Api\BarangController::class, '__invoke'])->name('barang');
+Route::get('/barang/{id}', [App\Http\Controllers\Api\BarangController::class, 'show'])->name('barang');
+
+Route::post('/transaksi', App\Http\Controllers\Api\TransaksiController::class)->name('transaksi');
+Route::get('/transaksi/{id}', [App\Http\Controllers\Api\TransaksiController::class, 'show'])->name('transaksi');
 
 //Route CRUD Level
 Route::get('levels', [LevelController::class, 'index']);
@@ -48,8 +57,8 @@ Route::put('kategori/{kategori}', [KategoriController::class, 'update']);
 Route::delete('kategori/{kategori}', [KategoriController::class, 'destroy']);
 
 //Route CRUD Barang
-Route::get('barang', [BarangController::class, 'index']);
-Route::post('barang', [BarangController::class, 'store']);
-Route::get('barang/{barang}', [BarangController::class, 'show']);
-Route::put('barang/{barang}', [BarangController::class, 'update']);
-Route::delete('barang/{barang}', [BarangController::class, 'destroy']);
+//Route::get('barang', [BarangController::class, 'index']);
+//Route::post('barang', [BarangController::class, 'store']);
+//Route::get('barang/{barang}', [BarangController::class, 'show']);
+//Route::put('barang/{barang}', [BarangController::class, 'update']);
+//Route::delete('barang/{barang}', [BarangController::class, 'destroy']);
