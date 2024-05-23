@@ -12,6 +12,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\FileUploadController;
+use App\Http\Controllers\FormUploadController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -115,3 +116,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 Route::get('/file-upload', [FileUploadController::class, 'fileUpload']);
 Route::post('/file-upload', [FileUploadController::class, 'prosesFileUpload']);
+
+// JS 12 Tugas 1
+Route::get('/formUpload', [FormUploadController::class, 'formUpload']);
+Route::post('/formUpload', [FormUploadController::class, 'uploadFile']);
