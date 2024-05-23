@@ -13,6 +13,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\FormUploadController;
+use App\Http\Controllers\FormImageController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -120,3 +121,7 @@ Route::post('/file-upload', [FileUploadController::class, 'prosesFileUpload']);
 // JS 12 Tugas 1
 Route::get('/formUpload', [FormUploadController::class, 'formUpload']);
 Route::post('/formUpload', [FormUploadController::class, 'uploadFile']);
+
+// JS 12 Tugas 2
+Route::get('/upload', [FormImageController::class, 'imgUpload']);
+Route::post('/upload', [FormImageController::class, 'prosesImgUpload']);
